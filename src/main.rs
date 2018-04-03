@@ -34,7 +34,7 @@ fn get_file_block_indices(log: &str) -> Vec<(usize, usize, String)> {
     }
 
     // if there is the emergency stop, the closing parenthesis is missing
-    if open.len() > 0 {
+    if !open.is_empty() {
         blocks.push((open.pop().unwrap(), log.len()));
     }
 
@@ -61,7 +61,7 @@ fn get_file_block_indices(log: &str) -> Vec<(usize, usize, String)> {
     blocks
 }
 
-fn process<'a>(log: &'a str) -> HashMap<String, Vec<LogItem<'a>>> {
+fn process(log: &str) -> HashMap<String, Vec<LogItem>> {
     let rules = LogItem::rules();
     let mut output = HashMap::new();
 
@@ -101,7 +101,7 @@ fn process<'a>(log: &'a str) -> HashMap<String, Vec<LogItem<'a>>> {
         // append rules
         output
             .entry(filename)
-            .or_insert(Vec::new())
+            .or_insert_with(Vec::new)
             .append(&mut log_items);
     }
 
@@ -110,13 +110,12 @@ fn process<'a>(log: &'a str) -> HashMap<String, Vec<LogItem<'a>>> {
         .into_iter()
         .map(|(filename, log_items)| {
             // get unique log items
-            let mut log_items = Vec::from_iter(
-                HashSet::<LogItem<'a>>::from_iter(log_items.into_iter()).into_iter(),
-            );
+            let mut log_items =
+                Vec::from_iter(HashSet::<LogItem>::from_iter(log_items.into_iter()).into_iter());
 
             // sort log items by location
             log_items.sort_unstable_by(|a, b| match (&a.location, &b.location) {
-                (Location::Line(a), Location::Line(b)) => a.cmp(&b),
+                (Location::Line(a), Location::Line(b)) => a.cmp(b),
                 (Location::Line(_), Location::End) => Ordering::Less,
                 (Location::Line(_), Location::None) => Ordering::Greater,
                 (Location::End, Location::Line(_)) => Ordering::Greater,
