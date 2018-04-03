@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# halt script if any untested command fails
+set -e
+
+# enable pipefail if supported
+( set -o pipefail 2>/dev/null ) && set -o pipefail ||:
+
 # run latex on test files
 
 cd tests
