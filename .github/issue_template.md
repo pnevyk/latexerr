@@ -1,4 +1,4 @@
-#### New rule or a fix
+### New rule or a fix
 
 *If your issue is not a new rule request or an old rule fix proposal, just clear this template and write what you have in mind.*
 
