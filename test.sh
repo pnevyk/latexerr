@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # run latex on test files
 
@@ -25,7 +25,7 @@ do
     diff temp "$expected" > /dev/null
 
     # if actual output is not equal to expected
-    if [ $? != "0" ]
+    if [ $? -ne 0 ]
     then
         echo "Test $name failed"
         errors=$(($errors + 1))
@@ -34,10 +34,10 @@ done
 
 # print results
 echo
-if [ $errors == "0" ]
+if [ $errors -eq 0 ]
 then
     echo "All tests completed successfully"
-elif [ $errors == "1" ]
+elif [ $errors -eq 1 ]
 then
     echo "There is 1 error"
 else
