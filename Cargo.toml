@@ -1,0 +1,9 @@
+[package]
+name = "latexerr"
+version = "0.1.0"
+authors = ["Petr Nevyhoštěný <petr.nevyhosteny@gmail.com>"]
+license = "MIT"
+
+[dependencies]
+regex = "0.2.10"
+yansi = "0.4.0"

@@ -1,0 +1,9 @@
+File: include.tex
+
+Error on line 5: Unknown command \barone.
+Error on line 7: Unknown command \bartwo.
+Error on line 9: Unknown command \barthree.
+
+File: included.tex
+
+Error on line 1: Unknown command \foo.
