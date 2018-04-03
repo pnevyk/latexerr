@@ -22,10 +22,9 @@ do
 
     # sed is for removing colors
     ../target/debug/latexerr -- "$file" | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" > temp
-    diff temp "$expected" > /dev/null
 
     # if actual output is not equal to expected
-    if [ $? -ne 0 ]
+    if ! diff temp "$expected" > /dev/null
     then
         echo "Test $name failed"
         errors=$(($errors + 1))
