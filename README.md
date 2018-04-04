@@ -28,7 +28,7 @@ build it from source and link the binary to use it across your system. For that,
 features, you need a **nightly** version of the Rust compiler.
 
 ```shell
-git clone git@github.com/pnevyk/latexerr.git
+git clone git@github.com:pnevyk/latexerr.git
 cd latexerr
 cargo build --release
 # link the binary at target/release/latexerr from any of directories in your $PATH
